@@ -27,6 +27,13 @@ body {
     cursor: pointer;
 }
 
+#videoElement {
+    width: 100%;
+    max-height: 300px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
 #results {
     margin-top: 20px;
     font-size: 18px;

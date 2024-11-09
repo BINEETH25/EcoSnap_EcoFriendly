@@ -25,7 +25,7 @@ app.post('/save-image', (req, res) => {
     });
 });
 
-const PORT = 5500;
+const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
