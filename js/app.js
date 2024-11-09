@@ -43,7 +43,7 @@ function captureImage() {
 
 // Function to send image data to the Node server
 function sendImageToServer(imageData) {
-    fetch('http://localhost:3007/save-image', {
+    fetch('http://localhost:3010/save-image', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

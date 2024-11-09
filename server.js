@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3007;
+const PORT = 3008;
 
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json({ limit: '10mb' })); // Increase limit if images are larger
