@@ -21,7 +21,21 @@ function captureImage() {
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // This image can now be sent for recognition
+    // Convert canvas to data URL
     const imageData = canvas.toDataURL("image/png");
-    console.log("Captured Image Data URL:", imageData);
+
+    // Send the image to the server for saving
+    fetch('http://localhost:3000/save-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageData })
+    })
+    .then(response => response.text())
+    .then(message => {
+        console.log(message); // Logs "Image saved successfully"
+    })
+    .catch(error => {
+        console.error("Error saving image:", error);
+    });
 }
+
