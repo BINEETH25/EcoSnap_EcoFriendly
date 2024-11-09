@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSnap</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>EcoSnap: Capture and Save Image</h1>
+        
+        <!-- Button to start the camera feed -->
+        <button id="startCameraButton">Start Camera</button>
+        
+        <!-- Button to capture the image (Snap) -->
+        <button id="ecoSnapButton" disabled>Take a Snap</button>
+        
+        <!-- Display live video feed from the camera -->
+        <video id="videoElement" autoplay></video>
+        
+        <!-- Hidden canvas to capture and save the image -->
+        <canvas id="canvas" style="display: none;"></canvas>
+        
+        <!-- Results or any message from the server will be displayed here -->
+        <div id="results"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
