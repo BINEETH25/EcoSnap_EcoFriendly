@@ -1,6 +1,12 @@
+// Set up an event listener for the Start Camera button
+document.getElementById('startCameraButton').addEventListener('click', () => {
+    startCamera();
+    document.getElementById('ecoSnapButton').disabled = false; // Enable the Snap button after starting the camera
+});
+
 // Set up an event listener for the Snap button
 document.getElementById('ecoSnapButton').addEventListener('click', () => {
-    startCamera();
+    captureImage();
 });
 
 // Function to start the camera
@@ -19,7 +25,7 @@ function startCamera() {
         });
 }
 
-// Function to capture an image from the video feed
+// Function to capture an image from the video feed and send it to the server
 function captureImage() {
     const canvas = document.getElementById('canvas');
     const video = document.getElementById('videoElement');
@@ -28,15 +34,28 @@ function captureImage() {
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Convert the image to a data URL (base64)
-    const imageData = canvas.toDataURL("image/png");
-    console.log("Captured Image Data URL:", imageData);
+    // Convert the image to a data URL (base64) in JPEG format
+    const imageData = canvas.toDataURL("image/jpeg");
 
-    // Here, you can send the imageData to a server or API for processing
-    // Example: identifyObjects(imageData);
+    // Send the imageData to the server for saving
+    sendImageToServer(imageData);
 }
 
-// Add a delay before capturing the image to ensure the camera is open
-document.getElementById('ecoSnapButton').addEventListener('click', () => {
-    setTimeout(captureImage, 1000); // Capture image after 1-second delay
-});
+// Function to send image data to the Node server
+function sendImageToServer(imageData) {
+    fetch('http://localhost:3007/save-image', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ imageData })
+    })
+    .then(response => response.text())
+    .then(message => {
+        console.log("Server Response:", message);
+        document.getElementById('results').innerText = message;
+    })
+    .catch(error => {
+        console.error("Error saving image to the server:", error);
+    });
+}
